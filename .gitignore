@@ -1,0 +1,28 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environment
+venv/
+.venv/
+env/
+
+# Environment/secrets
+.env
+.env.*
+
+# Generated pipeline output
+raw/*
+chunks/*
+normalized/*
+metrics_report.html
+
+# Generated evaluation/report files
+ner/eval_results.json
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
