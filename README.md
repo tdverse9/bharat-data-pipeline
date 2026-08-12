@@ -33,7 +33,7 @@ flowchart TD
 
 ---
 
-## 📋 Overview & Objectives
+## Overview & Objectives
 
 This project fulfills the take-home assessment requirements for building a mini data pipeline. It handles unstructured legal data across four core stages:
 
