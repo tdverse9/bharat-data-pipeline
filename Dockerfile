@@ -1,28 +1,33 @@
 FROM python:3.10-slim
 
+ENV PYTHONDONTWRITEBYTECODE=1 \
+    PYTHONUNBUFFERED=1 \
+    PIP_NO_CACHE_DIR=1
+
 WORKDIR /app
 
-# Install system dependencies required for Playwright and C-extensions
-RUN apt-get update && apt-get install -y \
-    build-essential \
-    curl \
-    git \
+# Use HTTPS Debian repositories instead of HTTP.
+RUN sed -i 's|http://deb.debian.org|https://deb.debian.org|g' /etc/apt/sources.list.d/debian.sources \
+    && apt-get update \
+    && apt-get install -y --no-install-recommends \
+        build-essential \
+        curl \
+        git \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy requirements and install Python dependencies
 COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
 
-# Download required spaCy model and Playwright browser binaries
-RUN python -m spacy download en_core_web_sm
-RUN playwright install-deps
-RUN playwright install chromium
+RUN pip install --upgrade pip setuptools wheel \
+    && pip install -r requirements.txt
 
-# Copy project source code into container
+RUN playwright install --with-deps chromium
+
 COPY . .
 
-# Grant execution permissions to driver script
-RUN chmod +x run.sh
+RUN mkdir -p \
+    /app/raw \
+    /app/chunks \
+    /app/normalized \
+    /app/data/mock
 
-# Run unit tests and execute the full pipeline by default
-CMD ["/bin/bash", "-c", "pytest tests/ && ./run.sh"]
+CMD ["python", "main.py"]

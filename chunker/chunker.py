@@ -76,6 +76,7 @@ def run_chunker():
                 char_cursor = max(char_cursor, char_end - 200)
 
                 # Heading detection heuristic for section_path
+                
                 headings = [line.replace("#", "").strip() for line in chunk_str.split("\n") if line.startswith("#")]
 
                 chunk_entry = {
