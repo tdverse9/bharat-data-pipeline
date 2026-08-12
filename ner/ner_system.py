@@ -25,7 +25,7 @@ ACT_NAME_PATTERN = r"\b[A-Z][a-zA-Z\s]+Act,\s*\d{4}\b"
 def extract_entities(text: str):
     entities = []
     
-    # Rule/Regex Extraction
+    #Regex Extraction
     for label, pattern in REGEX_PATTERNS.items():
         for match in re.finditer(pattern, text):
             entities.append({

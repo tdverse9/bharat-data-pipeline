@@ -270,7 +270,6 @@ def crawl(seed_urls, max_depth=3):
                 f"(Depth: {depth})"
             )
 
-            # Use Playwright for selected JS-heavy sites.
             used_js = any(
                 keyword in url.lower()
                 for keyword in [
