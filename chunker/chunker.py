@@ -30,7 +30,6 @@ def chunk_text(text: str, target_min=400, target_max=800, overlap=75):
             chunk_str = "\n\n".join(current_chunk)
             chunks.append((chunk_str, current_tokens))
             
-            # Retain overlap tokens from the end of the previous chunk
             overlap_p = []
             overlap_tokens = 0
             for p in reversed(current_chunk):
@@ -75,8 +74,8 @@ def run_chunker():
                 char_end = char_start + len(chunk_str)
                 char_cursor = max(char_cursor, char_end - 200)
 
-                # Heading detection heuristic for section_path
-                
+                # it is basic method to find headings and organize text into sections
+
                 headings = [line.replace("#", "").strip() for line in chunk_str.split("\n") if line.startswith("#")]
 
                 chunk_entry = {

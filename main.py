@@ -18,25 +18,18 @@ def main():
         "[bold blue]Starting Mini Legal Data Pipeline...[/bold blue]"
     )
 
-    # Run crawler
     run_crawler(max_depth=2)
 
-    # Run parser
     run_parser()
 
-    # Run chunker
     run_chunker()
 
-    # Run NER
     run_ner()
 
-    # Evaluate NER
     metrics = evaluate()
 
-    # Generate report
     generate()
 
-    # Calculate summary stats
     crawled_count = 0
 
     if os.path.exists("raw/crawl_index.jsonl"):
